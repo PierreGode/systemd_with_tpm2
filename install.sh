@@ -3,19 +3,7 @@
 
 function prereqs()
 {
-	#sudo apt install libtss2-dev
-	  #libtss2-dev libtss2-fapi1 libtss2-rc0 libtss2-tctildr0
-
-	cat <<-EOF
-	  1) You must have created /etc/crypttab
-	    e.g.: luks /dev/sda2 none tpm2-device=auto
-	    tip: can use blkid to get the UUID of the device too.
-
-	  2) You must have installed necessary TSS2 libraries
-	    e.g. sudo apt install libtss2-dev
-	EOF
-
-	read -p "Enter to continue"
+sudo apt install libtss2-dev libtss2-dev libtss2-fapi1 libtss2-rc0 libtss2-tctildr0 -y
 }
 function install_docker()
 {
