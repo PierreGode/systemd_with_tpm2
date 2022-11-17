@@ -3,7 +3,7 @@
 
 function prereqs()
 {
-sudo apt install libtss2-dev libtss2-dev libtss2-fapi1 libtss2-rc0 libtss2-tctildr0 -y
+sudo apt install libtss2-dev libtss2-dev libtss2-fapi1 libtss2-rc0 libtss2-tctildr0 containerd -y
 }
 function install_docker()
 {
