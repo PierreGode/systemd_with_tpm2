@@ -1,7 +1,22 @@
 #!/bin/bash
 
 
-function prereqs()
+function install_tss2()
+{
+	apt install libtss2-dev libtss2-fapi1 libtss2-rc0 libtss2-tctildr0
+}
+
+function mkcrypttab()
+{
+    if [[ -f /etc/crypttab ]] ; then
+        echo "WARNING:  using existing crypttab" 1>&2
+    else
+        echo "WARNING:  creating default crypttab" 1>&2
+        ./mkcrypttab.sh >> /etc/crypttab
+    fi
+}
+
+function prereqs_old()
 {
 sudo apt install libtss2-dev libtss2-dev libtss2-fapi1 libtss2-rc0 libtss2-tctildr0 containerd -y
 }
@@ -49,7 +64,7 @@ function update_initramfs()
 function tldr_just_work_old()
 {
     #This compiles System D with TPM2 support.  Apparently not needed for a new install anymore, but left 'just in case'.
-	prereqs && \
+	prereqs_old && \
 	install_docker && \
 	compile_systemd_with_tpm2 && \
 	install_systemd_with_tpm2 && \
@@ -60,8 +75,8 @@ function tldr_just_work_old()
 
 function tldr_just_work()
 {
-	prereqs && \
-	install_docker && \
+	mkcrypttab && \
+	install_tss2 && \
 	install_crypt_setup_mod_scripts && \
 	update_initramfs && \
 	echo SystemD with TPM2 installation complete.
